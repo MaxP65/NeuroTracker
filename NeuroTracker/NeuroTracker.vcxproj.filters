@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\NeuralNetwork">
+      <UniqueIdentifier>{3d8abef1-4507-40f7-afa9-87b6091b5b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ImageProcessing">
+      <UniqueIdentifier>{73a30699-a16e-408b-b486-344f29197357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NeuralNetwork\Layer">
+      <UniqueIdentifier>{d33627b7-1c1b-4fa1-bc1b-70cf35c993eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NeuralNetwork\Utils">
+      <UniqueIdentifier>{738cc97d-17ac-47c7-934a-fb56c53654cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NeuroTracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NeuralNetwork.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer\FullyConnected.h">
+      <Filter>Header Files\NeuralNetwork\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Random.h">
+      <Filter>Header Files\NeuralNetwork\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\CustomMath.h">
+      <Filter>Header Files\NeuralNetwork\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\JSON.h">
+      <Filter>Header Files\NeuralNetwork\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer\ReLU.h">
+      <Filter>Header Files\NeuralNetwork\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Optimizer.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
