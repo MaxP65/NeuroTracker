@@ -17,9 +17,6 @@ public:
 	}
 	void randomize() {
 	}
-	Matrix derrivative() {
-
-	}
 	Matrix output(Matrix& prev_layer_data) {
 		Matrix res = prev_layer_data;
 		for (int i = 0; i < this->m_in_size; i++) {
@@ -28,6 +25,12 @@ public:
 		return res;
 	}
 	Matrix optimize(Scalar stepSize, Matrix& prev_layer_data, Matrix& next_layer_derivative) {
+		Matrix derrivative(prev_layer_data.Row(), next_layer_derivative.Col();
+		for (int i = 0; i < derrivative.Row()) {
+			for (int i = 0; i < derrivative.Col()) {
+
+			}
+		}
 		return next_layer_derivative;
 	}
 };
