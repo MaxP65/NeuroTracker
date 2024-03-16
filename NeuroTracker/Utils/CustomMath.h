@@ -59,7 +59,7 @@ public:
 
     CustomMatrix<T> operator*(const CustomMatrix& rhs)
     {
-        std::cout << "multiply " << data_.size() << "x" << col_ << " " << rhs.data_.size() << "x" << rhs.col_ << " ";
+        //std::cout << "multiply " << data_.size() << "x" << col_ << " " << rhs.data_.size() << "x" << rhs.col_ << " ";
         if (col_ != rhs.row_)
             throw std::runtime_error("Unequal size in Matrix*");
         CustomMatrix res(row_, rhs.col_, 0.0);

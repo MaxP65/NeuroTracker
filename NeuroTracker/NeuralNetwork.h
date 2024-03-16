@@ -61,26 +61,35 @@ public:
 			std::cout << "step " << i << "\n";
 			std::vector<Matrix> outputs((m_len + 1));
 			//Passing all dataset through and collecting every layer results;
-			for (int j = 0; j < dataset.count; j++) outputs[j] = dataset.input[j];
+			for (int j = 0; j < dataset.count; j++) {
+				outputs[0] = Matrix(dataset.input[0].Row(), dataset.count);
+				outputs[0].setCol(j, dataset.input[j]);
+			}
 			for (int l = 0; l < m_len; l++) {
+				outputs[l + 1] = Matrix(m_layers[l]->out_size(), dataset.count);
 				for (int j = 0; j < dataset.count; j++) {
-					Matrix outPrev = outputs[l * dataset.count].Col(j);
-					outputs[(l + 1) * dataset.count].setCol(j, m_layers[l]->output(outPrev));
+					Matrix outPrev = outputs[l].Col(j);
+					outputs[l + 1].setCol(j, m_layers[l]->output(outPrev));
 				}
 			}
 			//Calculating derrivative of error
 			Matrix derrivative(m_layers[m_len - 1]->out_size(), dataset.count);
 			for (int j = 0; j < m_layers[m_len - 1]->out_size(); j++) {
 				for (int k = 0; k < dataset.count; k++) {
-					derrivative(j, k) -= 2 * (dataset.output[k](j, 0) - outputs[m_len * dataset.count + k](j, 0));
+					derrivative(j, k) -= 2 * (dataset.output[k](j, 0) - outputs[m_len](j, k));
 				}
 			}
 			//Optimizing weighgs and biases
 			for (int l = m_len - 1; l >= 0; l--) {
 				derrivative = m_layers[l]->optimize(stepSize, outputs[l], derrivative);
 			}
-
-			std::cout << "step " << i << "\n";
+			Scalar error = 0;
+			for (int j = 0; j < m_layers[m_len - 1]->out_size(); j++) {
+				for (int k = 0; k < dataset.count; k++) {
+					error += pow(dataset.output[k](j, 0) - outputs[m_len](j, k), 2);
+				}
+			}
+			std::cout << "error" << error <<  "\n";
 		}
 	}
 };
