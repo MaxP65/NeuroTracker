@@ -15,6 +15,9 @@ public:
     size_t size() {
         return data_.size();
     }
+    CustomMatrix() {
+
+    }
 
     CustomMatrix(size_t row, size_t col, const std::vector<T>& data) {
         if ((row * col) != data.size())
@@ -50,7 +53,7 @@ public:
 
     void setCol(const size_t k, const CustomMatrix& col) {
         for (int i = 0; i < row_; i++) {
-            this->operator()(i, k) = res(i, 0);
+            this->operator()(i, k) = col(i, 0);
         }
     }
 

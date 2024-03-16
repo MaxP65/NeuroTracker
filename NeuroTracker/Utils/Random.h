@@ -8,7 +8,11 @@ Scalar fRand(Scalar fMin, Scalar fMax)
     return fMin + f * (fMax - fMin);
 }
 
-Scalar fRand()
+Scalar fpRand()
 {
-    return fRand(-1000, 1000);
+    return fRand(0, 1);
+}
+
+Scalar normalDist() {
+    return exp(-pow(fpRand() - 0.5,2)/0.09);
 }

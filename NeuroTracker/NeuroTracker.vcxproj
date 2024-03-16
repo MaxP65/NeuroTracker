@@ -138,6 +138,7 @@
     <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="Optimizer.h" />
     <ClInclude Include="Utils\CustomMath.h" />
+    <ClInclude Include="Utils\DatasetConverter.h" />
     <ClInclude Include="Utils\JSON.h" />
     <ClInclude Include="Utils\Random.h" />
   </ItemGroup>

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Eigen/Core>
 #include "Config.h"
 
 class Layer {

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Eigen/Core>
 #include "../Config.h"
 #include "../Layer.h"
 #include "../Utils/Random.h"
@@ -22,7 +21,7 @@ public:
 		//std::cout << "rand" << this->m_weight.size();
 		for (int i = 0; i < this->m_out_size; i++) {
 			for (int j = 0; j < this->m_in_size; j++) {
-				this->m_weight(i, j) = rand() / 100.0;
+				this->m_weight(i, j) = normalDist();
 			}
 		}
 	}

@@ -15,13 +15,6 @@ struct LayerData {
 	int size;
 };
 
-struct Dataset {
-	int count = 0;
-	
-	std::vector<Matrix> input;
-	std::vector<Matrix> output;
-};
-
 LayerData InputLayer(int size) {
 	return { LayerType::Input, size };
 }
@@ -65,6 +58,7 @@ public:
 
 	void optimize(Dataset dataset, Scalar stepSize, int max_steps) {
 		for (int i = 0; i < max_steps; i++) {
+			std::cout << "step " << i << "\n";
 			std::vector<Matrix> outputs((m_len + 1));
 			//Passing all dataset through and collecting every layer results;
 			for (int j = 0; j < dataset.count; j++) outputs[j] = dataset.input[j];
@@ -83,20 +77,10 @@ public:
 			}
 			//Optimizing weighgs and biases
 			for (int l = m_len - 1; l >= 0; l--) {
-				derrivative = m_layers[l]->optimize(stepSize, derrivative);
+				derrivative = m_layers[l]->optimize(stepSize, outputs[l], derrivative);
 			}
-		}
-	}
 
-	Scalar errorDerivative(Dataset dataset) {
-		Scalar res;
-		for (int i = 0; i < dataset.count; i++) {
-			Matrix predicted = output(dataset.input[i]);
-			for (int j = 0; j < predicted.Row(); j++) {
-				res += dataset.output[i](j, 0) - predicted(j, 0);
-			}
+			std::cout << "step " << i << "\n";
 		}
-		res *= -2;
-		return res;
 	}
 };

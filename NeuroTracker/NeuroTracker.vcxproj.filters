@@ -59,5 +59,8 @@
     <ClInclude Include="Optimizer.h">
       <Filter>Header Files\NeuralNetwork</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\DatasetConverter.h">
+      <Filter>Header Files\NeuralNetwork\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
