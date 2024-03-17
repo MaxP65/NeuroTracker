@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Activation\ReLU.h" />
+    <ClInclude Include="Activation\Softplus.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Layer\FullyConnected.h" />

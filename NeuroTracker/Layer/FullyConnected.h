@@ -13,6 +13,7 @@ public:
 	FullyConnectedLayer(const int in_size, const int out_size) :
 		Layer(in_size, out_size), m_weight(out_size, in_size), m_bias(out_size, 1)
 	{
+		std::cout << "FullyConnectedLayer" << in_size << "\n";
 	}
 	void init() {
 		this->m_weight = Matrix(this->m_out_size, this->m_in_size);
@@ -21,8 +22,9 @@ public:
 	void randomize() {
 		//std::cout << "rand" << this->m_weight.size();
 		for (int i = 0; i < this->m_out_size; i++) {
+			this->m_bias(i, 0) = fpRand();
 			for (int j = 0; j < this->m_in_size; j++) {
-				this->m_weight(i, j) = normalDist();
+				this->m_weight(i, j) = fpRand();//normalDist();
 			}
 		}
 	}
@@ -30,7 +32,7 @@ public:
 	Matrix output(Matrix& prev_layer_data) {
 		Matrix res = m_weight * prev_layer_data;
 		res = res + m_bias;
-		//Activation::activate(res);
+		Activation::activate(res);
 		return res;
 	}
 

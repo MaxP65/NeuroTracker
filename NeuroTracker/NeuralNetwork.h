@@ -21,7 +21,7 @@ LayerData InputLayer(int size) {
 }
 
 LayerData ConnectedLayer(int size) {
-	return { LayerType::FullyConnected };
+	return { LayerType::FullyConnected, size };
 }
 
 class NeuralNetwork {
@@ -121,6 +121,6 @@ public:
 			}
 			std::cout << "error" << error <<  "\n";
 		}
-		//printGraph(0, 1, 20, 20);
+		printGraph(0, 2, 20, 20);
 	}
 };

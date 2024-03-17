@@ -6,15 +6,17 @@ int main() {
     LayerData layers[] = {
         InputLayer(1),
         ConnectedLayer(3),
+        ConnectedLayer(3),
         ConnectedLayer(1)
     };
-    NeuralNetwork net(3, layers);
+    NeuralNetwork net(4, layers);
     net.randomize();
     std::cout << "randomized\n";
 
     std::vector<Scalar> vect{ 0, 0, 0.5, 1, 1, 1 };
     Dataset data = fromVector(3, 1, 1, vect);
-    net.optimize(data, 0.1, 400);
+    //net.optimize(data, 0.1, 400);
+    net.printGraph(-100, 100, 20, 20);
     std::cout << "optimized \n";
     
     //Matrix in(2, 1);
