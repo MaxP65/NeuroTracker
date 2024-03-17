@@ -25,6 +25,9 @@
     <Filter Include="Header Files\NeuralNetwork\Utils">
       <UniqueIdentifier>{738cc97d-17ac-47c7-934a-fb56c53654cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\NeuralNetwork\Activation">
+      <UniqueIdentifier>{2a9832a1-ed66-4c80-98e5-21781ece50ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NeuroTracker.cpp">
@@ -53,14 +56,14 @@
     <ClInclude Include="Utils\JSON.h">
       <Filter>Header Files\NeuralNetwork\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Layer\ReLU.h">
-      <Filter>Header Files\NeuralNetwork\Layer</Filter>
-    </ClInclude>
     <ClInclude Include="Optimizer.h">
       <Filter>Header Files\NeuralNetwork</Filter>
     </ClInclude>
     <ClInclude Include="Utils\DatasetConverter.h">
       <Filter>Header Files\NeuralNetwork\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Activation\ReLU.h">
+      <Filter>Header Files\NeuralNetwork\Activation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

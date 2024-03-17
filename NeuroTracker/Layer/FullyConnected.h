@@ -4,6 +4,7 @@
 #include "../Layer.h"
 #include "../Utils/Random.h"
 
+template<typename Activation>
 class FullyConnectedLayer : public Layer {
 private:
 	Matrix m_weight;
@@ -29,11 +30,13 @@ public:
 	Matrix output(Matrix& prev_layer_data) {
 		Matrix res = m_weight * prev_layer_data;
 		res = res + m_bias;
+		//Activation::activate(res);
 		return res;
 	}
 
-	Matrix optimize(Scalar stepSize, Matrix& prev_layer_data, Matrix& next_layer_derivative) {
+	Matrix optimize(Scalar stepSize, Matrix& prev_layer_data, Matrix& layer_data, Matrix& next_layer_derivative) {
 		Matrix newDerrivative(this->in_size(), next_layer_derivative.Col());
+		//Matrix activatedDerivative = Activation::derrivative(layer_data);
 		for (int i = 0; i < this->out_size(); i++) {
 			Scalar derrivativeSum = 0;
 			for (int j = 0; j < next_layer_derivative.Col(); j++) {
@@ -50,10 +53,9 @@ public:
 				}
 				m_weight(i, j) -= stepSize * derrivativeSum;
 				for (int k = 0; k < next_layer_derivative.Col(); k++) {
-					newDerrivative(j, k) += next_layer_derivative(i, k) * m_weight(i, j);
+					newDerrivative(j, k) +=  next_layer_derivative(i, k) * m_weight(i, j);
 				}
 			}
-
 		}
 		return newDerrivative;
 	}

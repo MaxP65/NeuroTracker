@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Config.h"
+#include "Activation.h"
 
 class Layer {
 protected:
@@ -17,5 +18,5 @@ public:
 	virtual void init() = 0;
 	virtual void randomize() = 0;
 	virtual Matrix output(Matrix& prev_layer_data) = 0;
-	virtual Matrix optimize(Scalar stepSize, Matrix& prev_layer_data, Matrix& next_layer_derivative) = 0;
+	virtual Matrix optimize(Scalar stepSize, Matrix& prev_layer_data, Matrix& layer_data, Matrix& next_layer_derivative) = 0;
 };

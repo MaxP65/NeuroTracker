@@ -12,9 +12,9 @@ int main() {
     net.randomize();
     std::cout << "randomized\n";
 
-    std::vector<Scalar> vect{ 0, 0, 0.5, 1, 1, 0 };
+    std::vector<Scalar> vect{ 0, 0, 0.5, 1, 1, 1 };
     Dataset data = fromVector(3, 1, 1, vect);
-    net.optimize(data, 0.1, 40);
+    net.optimize(data, 0.1, 400);
     std::cout << "optimized \n";
     
     //Matrix in(2, 1);

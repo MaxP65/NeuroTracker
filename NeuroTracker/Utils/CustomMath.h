@@ -16,7 +16,8 @@ public:
         return data_.size();
     }
     CustomMatrix() {
-
+        row_ = 1;
+        col_ = 1;
     }
 
     CustomMatrix(size_t row, size_t col, const std::vector<T>& data) {

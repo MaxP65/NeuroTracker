@@ -131,10 +131,10 @@
     <ClCompile Include="NeuroTracker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Activation\ReLU.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Layer\FullyConnected.h" />
-    <ClInclude Include="Layer\ReLU.h" />
     <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="Optimizer.h" />
     <ClInclude Include="Utils\CustomMath.h" />

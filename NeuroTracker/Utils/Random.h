@@ -14,5 +14,5 @@ Scalar fpRand()
 }
 
 Scalar normalDist() {
-    return exp(-pow(fpRand() - 0.5,2)/0.09);
+    return exp(-pow(fpRand(),2)/0.09);
 }
