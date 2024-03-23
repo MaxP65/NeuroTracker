@@ -10,9 +10,9 @@ Scalar fRand(Scalar fMin, Scalar fMax)
 
 Scalar fpRand()
 {
-    return fRand(-10, 10);
+    return fRand(-1, 1);
 }
 
 Scalar normalDist() {
-    return exp(-pow(fRand(-1, 1),2)/0.09);
+    return exp(-pow(fRand(-2, 2),2)/0.09);
 }

@@ -28,6 +28,7 @@ public:
         data_ = data;
 
     }
+
     CustomMatrix(size_t row, size_t col, const  T& val)
         : row_{ row }, col_{ col }, data_{ std::vector<T>(row * col, val) } { }
 
@@ -54,8 +55,13 @@ public:
 
     void setCol(const size_t k, const CustomMatrix& col) {
         for (int i = 0; i < row_; i++) {
-            this->operator()(i, k) = col(i, 0);
+            data_.at(col_ * i + k) = col(i, 0);
+           // std::cout << col(i, 0) << " To " << this->operator()(i, k);
         }
+    }
+
+    std::vector<T> data() {
+        return data_;
     }
 
     CustomMatrix<T> operator*(const CustomMatrix& rhs)
@@ -92,5 +98,14 @@ public:
         }
 
         return res;
+    }
+
+    void print() {
+        for (int i = 0; i < row_; i++) {
+            for (int j = 0; j < col_; j++) {
+                std::cout << this->operator()(i, j) << " ";
+            }
+            std::cout << "\n";
+        }
     }
 };

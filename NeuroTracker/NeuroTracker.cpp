@@ -4,25 +4,21 @@
 int main() {
     srand(time(NULL));
     LayerData layers[] = {
-        InputLayer(1),
-        ConnectedLayer(3),
-        ConnectedLayer(3),
-        ConnectedLayer(1)
+        InputLayer(2),
+        ConnectedLayer(4),
+        SoftmaxLayer(2)
     };
-    NeuralNetwork net(4, layers);
+    NeuralNetwork net(layers, 3);
     net.randomize();
     std::cout << "randomized\n";
 
-    std::vector<Scalar> vect{ 0, 0, 0.5, 1, 1, 1 };
-    Dataset data = fromVector(3, 1, 1, vect);
-    //net.optimize(data, 0.1, 400);
-    net.printGraph(-100, 100, 20, 20);
+    std::vector<Scalar> vect{ 0, 0, 0, 1, 
+                              1, 1, 1, 0 };
+    Dataset data = fromVector(2, 2, 2, vect);
+    net.optimize(data, 0.1, 100);
     std::cout << "optimized \n";
-    
-    //Matrix in(2, 1);
-    //in(0, 0) = 1;
-    //in(1, 0) = 2;
-    //Matrix out = net.output(in);
-    //std::cout << "out" << out(0,0);
-    //Vector out = net.process(in);
+    Matrix in(2, 1, 1);
+    Matrix out = net.output(in);
+    std::cout << "out" << out(0, 0) << ' ' << out(1, 0) << " \n";
+    //net.printGraph(0, 2, 50, 50);
 }

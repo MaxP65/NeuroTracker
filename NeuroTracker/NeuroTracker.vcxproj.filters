@@ -68,5 +68,14 @@
     <ClInclude Include="Activation\Softplus.h">
       <Filter>Header Files\NeuralNetwork\Activation</Filter>
     </ClInclude>
+    <ClInclude Include="Activation\Linear.h">
+      <Filter>Header Files\NeuralNetwork\Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="Activation\Softmax.h">
+      <Filter>Header Files\NeuralNetwork\Activation</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer\Convolutional.h">
+      <Filter>Header Files\NeuralNetwork\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

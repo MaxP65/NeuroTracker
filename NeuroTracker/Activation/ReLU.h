@@ -2,26 +2,29 @@
 
 #include "../Config.h"
 
-static class ReLU {
+class ReLU {
 public:
 	static Scalar activate(Scalar in) {
 		return max(0.0, in);
 	}
-	static Matrix activate(Matrix in) {
+	static Matrix activate(Matrix& in) {
+		Matrix out = in;
 		for (int i = 0; i < in.Row(); i++) {
-			in(i, 0) = activate(in(i, 0));
+			out(i, 0) = activate(in(i, 0));
 		}
-		return in;
+		return out;
 	}
 	static Scalar derrivative(Scalar in) {
 		return in > 0 ? 1 : 0;
 	}
-	static Matrix derrivative(Matrix in) {
+	static Matrix derrivative(Matrix& in) {
+		Matrix out = in;
 		for (int i = 0; i < in.Row(); i++) {
 			for (int j = 0; j < in.Col(); j++) {
-				in(i, j) = derrivative(in(i, j));
+				out(i, j) = derrivative(in(i, j));
+				//std::cout << in(i, j) << " to " << out(i, j) << "; ";
 			}
 		}
-		return in;
+		return out;
 	}
 };
