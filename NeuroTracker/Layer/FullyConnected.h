@@ -22,7 +22,7 @@ public:
 		for (int i = 0; i < this->m_out_size; i++) {
 			for (int j = 0; j < this->m_in_size; j++) {
 				this->m_weight(i, j) = fpRand(); // normalDist();
-				//std::cout << this->m_weight(i, j) << " ";
+				std::cout << this->m_weight(i, j) << " ";
 			}
 		}
 	}

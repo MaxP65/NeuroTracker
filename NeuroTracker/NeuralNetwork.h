@@ -9,6 +9,8 @@
 #include "Activation/Linear.h"
 #include "Activation/Softmax.h"
 
+#include "Utils/JSON.h"
+
 enum LayerType {
 	Input = 0,
 	FullyConnected,

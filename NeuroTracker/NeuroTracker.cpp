@@ -10,6 +10,7 @@ int main() {
     };
     NeuralNetwork net(layers, 3);
     net.randomize();
+    parseData();
     std::cout << "randomized\n";
 
     std::vector<Scalar> vect{ 0, 0, 0, 1, 

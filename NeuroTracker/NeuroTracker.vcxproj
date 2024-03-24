@@ -146,6 +146,9 @@
     <ClInclude Include="Utils\JSON.h" />
     <ClInclude Include="Utils\Random.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Saves\example.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
