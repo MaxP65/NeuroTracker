@@ -1,0 +1,561 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Model Performance Comparison</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            .chart-container {
+                margin: 30px 0;
+                padding: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            canvas {
+                max-height: 400px;
+            }
+            .controls {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+            }
+            select {
+                padding: 8px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                min-width: 200px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+                cursor: pointer;
+            }
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+            .metric-high {
+                color: green;
+            }
+            .metric-low {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Model Performance Comparison</h1>
+
+            <div class="controls">
+                <div>
+                    <label for="sort-metric">Sort by:</label>
+                    <select id="sort-metric" onchange="updateCharts()">
+                        <option value="mean_time_ms">Mean Time (ms)</option>
+                        <option value="mean_iterations">Mean Iterations</option>
+                        <option value="avg_psnr">Average PSNR</option>
+                        <option value="avg_ssim">Average SSIM</option>
+                        <option value="avg_mse">Average MSE</option>
+                        <option value="attack_success_rate">Attack Success Rate</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sort-order">Order:</label>
+                    <select id="sort-order" onchange="updateCharts()">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Performance Metrics Comparison</h2>
+                <canvas id="metricsChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Detailed Metrics</h2>
+                <table id="metricsTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Model</th>
+                            <th onclick="sortTable(1)">Mean Time (ms)</th>
+                            <th onclick="sortTable(2)">Mean Iterations</th>
+                            <th onclick="sortTable(3)">Avg PSNR</th>
+                            <th onclick="sortTable(4)">Avg SSIM</th>
+                            <th onclick="sortTable(5)">Avg MSE</th>
+                            <th onclick="sortTable(6)">Attack Success (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>tsn</td>
+                            <td>3.39</td>
+                            <td>11.14</td>
+                            <td class="metric-high">
+                                38.14
+                            </td>
+                            <td class="metric-high">
+                                0.916
+                            </td>
+                            <td class="metric-high">
+                                10.68
+                            </td>
+                            <td>92.2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uniformerv2</td>
+                            <td>5.17</td>
+                            <td>12.80</td>
+                            <td class="metric-high">
+                                37.67
+                            </td>
+                            <td class="metric-high">
+                                0.914
+                            </td>
+                            <td class="metric-high">
+                                12.04
+                            </td>
+                            <td>95.8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>videomae</td>
+                            <td>3.72</td>
+                            <td>5.11</td>
+                            <td class="metric-high">
+                                41.08
+                            </td>
+                            <td class="metric-high">
+                                0.960
+                            </td>
+                            <td class="metric-high">
+                                5.20
+                            </td>
+                            <td>100.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>videomaev2</td>
+                            <td>5.32</td>
+                            <td>7.34</td>
+                            <td class="metric-high">
+                                39.67
+                            </td>
+                            <td class="metric-high">
+                                0.947
+                            </td>
+                            <td class="metric-high">
+                                7.23
+                            </td>
+                            <td>100.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>uniformer</td>
+                            <td>5.23</td>
+                            <td>9.79</td>
+                            <td class="metric-high">
+                                38.62
+                            </td>
+                            <td class="metric-high">
+                                0.925
+                            </td>
+                            <td class="metric-high">
+                                9.26
+                            </td>
+                            <td>100.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>c2d</td>
+                            <td>4.71</td>
+                            <td>10.48</td>
+                            <td class="metric-high">
+                                38.39
+                            </td>
+                            <td class="metric-high">
+                                0.923
+                            </td>
+                            <td class="metric-high">
+                                10.06
+                            </td>
+                            <td>99.9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>i3dnonlocal</td>
+                            <td>5.69</td>
+                            <td>13.92</td>
+                            <td class="metric-high">
+                                37.53
+                            </td>
+                            <td class="metric-high">
+                                0.911
+                            </td>
+                            <td class="metric-high">
+                                11.95
+                            </td>
+                            <td>98.8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>mvitv2</td>
+                            <td>5.62</td>
+                            <td>9.26</td>
+                            <td class="metric-high">
+                                38.89
+                            </td>
+                            <td class="metric-high">
+                                0.937
+                            </td>
+                            <td class="metric-high">
+                                8.65
+                            </td>
+                            <td>100.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>videoswin</td>
+                            <td>14.64</td>
+                            <td>17.66</td>
+                            <td class="metric-high">
+                                36.14
+                            </td>
+                            <td class="metric-low">
+                                0.878
+                            </td>
+                            <td class="metric-high">
+                                16.20
+                            </td>
+                            <td>99.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>slowfast</td>
+                            <td>9.47</td>
+                            <td>19.81</td>
+                            <td class="metric-high">
+                                35.85
+                            </td>
+                            <td class="metric-high">
+                                0.915
+                            </td>
+                            <td class="metric-high">
+                                17.14
+                            </td>
+                            <td>42.2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>i3d</td>
+                            <td>5.65</td>
+                            <td>14.64</td>
+                            <td class="metric-high">
+                                37.36
+                            </td>
+                            <td class="metric-high">
+                                0.912
+                            </td>
+                            <td class="metric-high">
+                                12.77
+                            </td>
+                            <td>97.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>r2plus1d</td>
+                            <td>6.88</td>
+                            <td>9.68</td>
+                            <td class="metric-high">
+                                38.60
+                            </td>
+                            <td class="metric-high">
+                                0.929
+                            </td>
+                            <td class="metric-high">
+                                9.40
+                            </td>
+                            <td>100.0</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>tanet</td>
+                            <td>7.85</td>
+                            <td>12.20</td>
+                            <td class="metric-high">
+                                37.67
+                            </td>
+                            <td class="metric-high">
+                                0.913
+                            </td>
+                            <td class="metric-high">
+                                11.71
+                            </td>
+                            <td>99.8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>slowonly</td>
+                            <td>9.35</td>
+                            <td>9.84</td>
+                            <td class="metric-high">
+                                38.66
+                            </td>
+                            <td class="metric-high">
+                                0.927
+                            </td>
+                            <td class="metric-high">
+                                9.36
+                            </td>
+                            <td>99.8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>x3d</td>
+                            <td>15.42</td>
+                            <td>14.06</td>
+                            <td class="metric-high">
+                                37.36
+                            </td>
+                            <td class="metric-high">
+                                0.908
+                            </td>
+                            <td class="metric-high">
+                                12.67
+                            </td>
+                            <td>98.6</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            // Prepare data
+            const models = [{"attack_success_rate": 92.1608040201005, "avg_mse": 10.682394473082189, "avg_psnr": 38.1419544478779, "avg_ssim": 0.9163445294764473, "mean_iterations": 11.136683417085427, "mean_time_ms": 3.39095459990765, "name": "tsn", "total_time": 5630.826047897339}, {"attack_success_rate": 95.77889447236181, "avg_mse": 12.043036222011635, "avg_psnr": 37.66547242657367, "avg_ssim": 0.913844635661448, "mean_iterations": 12.798994974874372, "mean_time_ms": 5.1720051159211735, "name": "uniformerv2", "total_time": 10384.132328510284}, {"attack_success_rate": 100.0, "avg_mse": 5.198510633580389, "avg_psnr": 41.07725935771346, "avg_ssim": 0.9604059267837787, "mean_iterations": 5.110552763819095, "mean_time_ms": 3.719960353602117, "name": "videomae", "total_time": 13280.269335269928}, {"attack_success_rate": 100.0, "avg_mse": 7.231650289729245, "avg_psnr": 39.66563409348765, "avg_ssim": 0.946944662605101, "mean_iterations": 7.335678391959799, "mean_time_ms": 5.3226004959949895, "name": "videomaev2", "total_time": 15013.048518657684}, {"attack_success_rate": 100.0, "avg_mse": 9.261064475805934, "avg_psnr": 38.61614417825205, "avg_ssim": 0.9250075375449706, "mean_iterations": 9.791959798994975, "mean_time_ms": 5.2262881293368695, "name": "uniformer", "total_time": 15557.34789943695}, {"attack_success_rate": 99.89949748743719, "avg_mse": 10.060846444216129, "avg_psnr": 38.39082207308993, "avg_ssim": 0.9231975550972039, "mean_iterations": 10.480402010050252, "mean_time_ms": 4.710788109314501, "name": "c2d", "total_time": 16065.653198242188}, {"attack_success_rate": 98.79396984924624, "avg_mse": 11.954870957158576, "avg_psnr": 37.533155392894635, "avg_ssim": 0.9112011553122458, "mean_iterations": 13.922613065326631, "mean_time_ms": 5.69037485314374, "name": "i3dnonlocal", "total_time": 16796.38593149185}, {"attack_success_rate": 100.0, "avg_mse": 8.6545214087314, "avg_psnr": 38.89217544393669, "avg_ssim": 0.9372309464927593, "mean_iterations": 9.2643216080402, "mean_time_ms": 5.619664521193385, "name": "mvitv2", "total_time": 15726.252759456636}, {"attack_success_rate": 98.99497487437185, "avg_mse": 16.19868076904463, "avg_psnr": 36.13623524071975, "avg_ssim": 0.8783187925433693, "mean_iterations": 17.656281407035177, "mean_time_ms": 14.642981046168648, "name": "videoswin", "total_time": 24317.43902254105}, {"attack_success_rate": 42.211055276381906, "avg_mse": 17.13713229347944, "avg_psnr": 35.85344019473216, "avg_ssim": 0.914709846828152, "mean_iterations": 19.81005025125628, "mean_time_ms": 9.46548248008268, "name": "slowfast", "total_time": 20352.90156507492}, {"attack_success_rate": 96.98492462311557, "avg_mse": 12.76759360432773, "avg_psnr": 37.35990902164112, "avg_ssim": 0.911503272595717, "mean_iterations": 14.640201005025126, "mean_time_ms": 5.654907175284534, "name": "i3d", "total_time": 16259.689973592758}, {"attack_success_rate": 100.0, "avg_mse": 9.399625244753146, "avg_psnr": 38.59968785035473, "avg_ssim": 0.9285202690300032, "mean_iterations": 9.680402010050251, "mean_time_ms": 6.87963454663454, "name": "r2plus1d", "total_time": 17775.627327680588}, {"attack_success_rate": 99.79899497487436, "avg_mse": 11.71056459841077, "avg_psnr": 37.66649800411128, "avg_ssim": 0.91305301089757, "mean_iterations": 12.201005025125628, "mean_time_ms": 7.85469731278156, "name": "tanet", "total_time": 18617.38445687294}, {"attack_success_rate": 99.79899497487436, "avg_mse": 9.356393130355697, "avg_psnr": 38.65989582606025, "avg_ssim": 0.926820853264188, "mean_iterations": 9.840201005025126, "mean_time_ms": 9.352201542542808, "name": "slowonly", "total_time": 20187.39397072792}, {"attack_success_rate": 98.5929648241206, "avg_mse": 12.671403846378817, "avg_psnr": 37.355082071439895, "avg_ssim": 0.9078930800142301, "mean_iterations": 14.06030150753769, "mean_time_ms": 15.417201760546046, "name": "x3d", "total_time": 26678.82766866684}];
+
+            // Initialize charts
+            let metricsChart;
+
+            function updateCharts() {
+                const sortMetric = document.getElementById('sort-metric').value;
+                const sortOrder = document.getElementById('sort-order').value;
+
+                // Sort models
+                const sortedModels = [...models].sort((a, b) => {
+                    const valA = a[sortMetric] || 0;
+                    const valB = b[sortMetric] || 0;
+                    return sortOrder === 'asc' ? valA - valB : valB - valA;
+                });
+
+                // Update metrics chart
+                updateMetricsChart(sortedModels, sortMetric);
+            }
+
+            function updateMetricsChart(sortedModels, sortMetric) {
+                const ctx = document.getElementById('metricsChart').getContext('2d');
+
+                const labels = sortedModels.map(m => m.name);
+
+                // Determine which datasets to show based on sort metric
+                let datasets = [];
+                let yAxes = {};
+
+                if (sortMetric === 'mean_time_ms' || sortMetric === 'mean_iterations') {
+                    // Show time and iterations when sorted by either
+                    datasets = [
+                        {
+                            label: 'Mean Time (ms)',
+                            data: sortedModels.map(m => m.mean_time_ms),
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Mean Iterations',
+                            data: sortedModels.map(m => m.mean_iterations),
+                            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        }
+                    ];
+
+                    yAxes = {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Mean Time (ms)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Mean Iterations'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    };
+                } else {
+                    // Show quality metrics for other sort options
+                    datasets = [
+                        {
+                            label: 'PSNR',
+                            data: sortedModels.map(m => m.avg_psnr),
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'SSIM',
+                            data: sortedModels.map(m => m.avg_ssim),
+                            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        },
+                        {
+                            label: 'MSE',
+                            data: sortedModels.map(m => m.avg_mse),
+                            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y2'
+                        }
+                    ];
+
+                    yAxes = {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'PSNR (dB)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            max: 1,
+                            title: {
+                                display: true,
+                                text: 'SSIM'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        },
+                        y2: {
+                            type: 'linear',
+                            display: false,
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'MSE'
+                            }
+                        }
+                    };
+                }
+
+                if (metricsChart) {
+                    metricsChart.destroy();
+                }
+
+                metricsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        scales: yAxes
+                    }
+                });
+            }
+
+            function sortTable(columnIndex) {
+                const table = document.getElementById('metricsTable');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    const aVal = a.cells[columnIndex].textContent;
+                    const bVal = b.cells[columnIndex].textContent;
+
+                    // Handle numeric values
+                    if (!isNaN(aVal) && !isNaN(bVal)) {
+                        return parseFloat(aVal) - parseFloat(bVal);
+                    }
+
+                    // Handle N/A values
+                    if (aVal === 'N/A') return 1;
+                    if (bVal === 'N/A') return -1;
+
+                    // Default string comparison
+                    return aVal.localeCompare(bVal);
+                });
+
+                // Reverse if already sorted
+                if (table.dataset.lastSorted === columnIndex.toString()) {
+                    rows.reverse();
+                    table.dataset.lastSorted = '';
+                } else {
+                    table.dataset.lastSorted = columnIndex.toString();
+                }
+
+                // Rebuild table
+                rows.forEach(row => tbody.appendChild(row));
+            }
+
+            // Initialize charts on load
+            document.addEventListener('DOMContentLoaded', function() {
+                updateCharts();
+            });
+        </script>
+    </body>
+    </html>
+    
